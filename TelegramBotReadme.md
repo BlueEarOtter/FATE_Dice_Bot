@@ -19,6 +19,8 @@
   Welcome Adventurers!
   
   Use /roll to roll 4 FATE dice.
+  
+  Full instructions at tinyurl.com/FDB-ReadMe
   ```
 ### /roll - Rolls FATE dice. Returns a dice string and a number
 Default roll is 4dF (that is, 4 FATE Dice)
