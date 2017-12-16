@@ -1,7 +1,7 @@
 # FATE_Dice_Bot
 Telegram Bot that is used to play FATE-based RPGs
-Bot location: @fate_dice_bot
-Bot currently not hosted
+-Bot location: @fate_dice_bot
+-Bot currently not hosted
 
 This bot uses the python-telegram-bot package to interface with telegram. 
 
