@@ -35,9 +35,9 @@ def fateroll():
     elif die == 1:
         return die,"[ + ]"
 
-#############
-# /functions#
-#############
+############
+#/functions#
+############
 
 def start(bot, update):
     """
