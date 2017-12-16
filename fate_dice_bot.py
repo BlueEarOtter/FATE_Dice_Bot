@@ -35,9 +35,9 @@ def fateroll():
     elif die == 1:
         return die,"[ + ]"
 
-#############
-# /functions#
-#############
+############
+#/functions#
+############
 
 def start(bot, update):
     """
@@ -77,7 +77,7 @@ def roll(bot, update):
 ######
 
 def main(Token):
-	#Create an update/dispatch channel to communicate with bot
+    #Create an update/dispatch channel to communicate with bot
     updater = Updater(token=Token)
     dispatcher = updater.dispatcher
     
@@ -97,9 +97,6 @@ def main(Token):
     updater.start_polling()
     
     return
-
-
-
 
 ####################
 #Main Function Call#
