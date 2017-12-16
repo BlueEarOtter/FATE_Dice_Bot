@@ -1,4 +1,6 @@
 # FATE_Dice_Bot
+For READ ME file on how to use the bot's telegram functions, read the FATE Dice Bot's [Telegram Bot ReadMe](TelegramBotReadme.md)
+
 Telegram Bot that is used to play FATE-based RPGs
 - Bot location: @fate_dice_bot
 - Bot currently not hosted
@@ -9,11 +11,11 @@ see: https://github.com/python-telegram-bot/python-telegram-bot
 
 Code includes:
 - /start command -- Initializes bot
-- /roll command -- rolls 4 FATE dice and returns a schematic diagram as well as a number
+- /roll command -- rolls 4 FATE dice and returns a schematic diagram as well as a number. Command can be modified to roll any positive number of dice ± a modifier
+- /help command -- an in-Telegram abbreviated help manual
 
 Intended future edits:
 - Character creation sheets from FATE: Accelerated
-- Arguments included for adding to rolls and rolling more or less than 4 dice.
 
 Using this code: 
 This code is currently written as a python script and intended for use with python 3.6. To use this code, first download and install the python-telegram-bot module for python 3:
