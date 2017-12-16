@@ -35,9 +35,9 @@ def fateroll():
     elif die == 1:
         return die,"[ + ]"
 
-############
-#/functions#
-############
+#############
+# /functions#
+#############
 
 def start(bot, update):
     """
@@ -49,28 +49,82 @@ def start(bot, update):
     welcomeText = "Welcome Adventurers!\n\nUse /roll to roll 4 FATE dice."
     #Send welcome message to bot
     bot.send_message(chat_id=update.message.chat_id,text=welcomeText)
+    return
 
-def roll(bot, update):
+def roll(bot, update,args):
     """
-    /roll function
-    rolls 4 FATE dice. Sends dice string and values to the bot
+    /roll function:
+        rolls n FATE dice and modified by m.
+    syntax:
+        /roll ndF ±m
+    defaults:
+        n = 4, m = 0
+    
+    Sends dice string and values to the bot
     """
-    #define variables for output
-    dice=[0,0,0,0]                         
+    #initialize variables for output                        
     output = ""
+    n=4
+    modifier=0
+    modstring=""
+    
+    #read in the arguments
+    for arg in args:
+        if (arg[0] == "+") and (arg[1::].isdigit()):
+            modifier = int(arg[1::])
+            modstring = " " +arg
+        if (arg[0]=="-") and (arg[1::].isdigit()):
+            modifier = -int(arg[1::])
+            modstring = " " +arg 
+        if (arg[-2::] == "dF") and (arg[0:-2].isdigit()):
+            n = int(arg[0:-2])
+    
+    dice = [0]*n
     
     #roll the dice 4 times
-    for i in range(0,4):
+    for i in range(0,n):
+        bot.send_message(chat_id=update.message.chat_id, text=str(i))
         #store each roll number and dice face
         dice[i],strdie = fateroll()
         output+= strdie
         del strdie
     
     #write output string
-    outText = output+" = "+str(sum(dice))
+    outText = output+modstring+" = "+str(sum(dice)+modifier)
     #send output to bot
     bot.send_message(chat_id=update.message.chat_id, text=outText)
     return
+
+def help(bot, update, args):
+    #help manuals
+    helphelp = """Help menu. can list commands using "/help list". Can get information about specific functions by calling "/help <function name>"
+    ex: /help roll"""
+    listhelp = """/roll - rolls dice
+    /start - launches bot
+    /help - help files"""
+    rollhelp = """/roll function:
+        rolls n FATE dice and modified by m.
+    syntax:
+        /roll ndF ±m
+    defaults:
+        n = 4, m = 0
+    
+    Sends dice string and values to the bot"""
+    starthelp="""/start fucntion
+    Message that greets users when they first launch the bot.
+        -indicates what the /roll command does"""
+    #switch statement to chose manual
+    if len(args)==0:
+        bot.send_message(chat_id=update.message.chat_id, text=helphelp)
+    elif args[0].lower() == "list":
+        bot.send_message(chat_id=update.message.chat_id, text=listhelp)
+    elif args[0].lower() == "roll":
+        bot.send_message(chat_id=update.message.chat_id, text=rollhelp)
+    elif args[0].lower() == "start":
+        bot.send_message(chat_id=update.message.chat_id, text=starthelp)
+    else: bot.send_message(chat_id=update.message.chat_id, text=helphelp)
+    return
+        
 
 ######
 #Main#
@@ -87,11 +141,13 @@ def main(Token):
     
     #Define the start and roll handlers
     start_handler = CommandHandler('start', start)
-    roll_handler = CommandHandler('roll', roll)
+    roll_handler = CommandHandler('roll', roll, pass_args=True)
+    help_handler = CommandHandler('help', help, pass_args=True)
     
     #Tell the dispatcher where to find the handlers
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(roll_handler)
+    dispatcher.add_handler(help_handler)
     
     #Start the bot
     updater.start_polling()
@@ -103,4 +159,4 @@ def main(Token):
 ####################
 
 if __name__ == "__main__":
-	main(authToken)
+    main(authToken)
