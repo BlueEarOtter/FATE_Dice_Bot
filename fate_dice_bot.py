@@ -46,7 +46,7 @@ def start(bot, update):
         -indicates what the /roll command does
     """
     #Write welcome message
-    welcomeText = "Welcome Adventurers!\n\nUse /roll to roll 4 FATE dice."
+    welcomeText = "Welcome Adventurers!\n\nUse /roll to roll 4 FATE dice.\n\nFull instructions at tinyurl.com/FDB-ReadMe"
     #Send welcome message to bot
     bot.send_message(chat_id=update.message.chat_id,text=welcomeText)
     return
