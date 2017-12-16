@@ -72,18 +72,18 @@ def roll(bot, update,args):
     for arg in args:
         if (arg[0] == "+") and (arg[1::].isdigit()):
             modifier = int(arg[1::])
-            modstring = " " +arg
+            modstring = " + " + arg[1::]
         if (arg[0]=="-") and (arg[1::].isdigit()):
             modifier = -int(arg[1::])
-            modstring = " " +arg 
-        if (arg[-2::] == "dF") and (arg[0:-2].isdigit()):
+            modstring = " - " + arg[1::]
+        if (arg[-2::].lower() == "df") and (arg[0:-2].isdigit()):
             n = int(arg[0:-2])
     
+    #initialize dice
     dice = [0]*n
     
-    #roll the dice 4 times
+    #roll the dice n times
     for i in range(0,n):
-        bot.send_message(chat_id=update.message.chat_id, text=str(i))
         #store each roll number and dice face
         dice[i],strdie = fateroll()
         output+= strdie
@@ -97,22 +97,10 @@ def roll(bot, update,args):
 
 def help(bot, update, args):
     #help manuals
-    helphelp = """Help menu. can list commands using "/help list". Can get information about specific functions by calling "/help <function name>"
-    ex: /help roll"""
-    listhelp = """/roll - rolls dice
-    /start - launches bot
-    /help - help files"""
-    rollhelp = """/roll function:
-        rolls n FATE dice and modified by m.
-    syntax:
-        /roll ndF ±m
-    defaults:
-        n = 4, m = 0
-    
-    Sends dice string and values to the bot"""
-    starthelp="""/start fucntion
-    Message that greets users when they first launch the bot.
-        -indicates what the /roll command does"""
+    helphelp = "Help menu. can list commands using \"/help list\". Can get information about specific functions by calling \"/help <function name>\"\n  ex: /help roll"
+    listhelp = "/roll - rolls dice\n/start - launches bot\n/help - help files"
+    rollhelp = "/roll function:\nrolls n FATE dice and modified by m.\n\nsyntax:\n    /roll ndF ±m\ndefaults:\n    n = 4, m = 0\n\nSends dice string and values to the bot"
+    starthelp="/start fucntion\nMessage that greets users when they first launch the bot.\n  -indicates what the /roll command does"
     #switch statement to chose manual
     if len(args)==0:
         bot.send_message(chat_id=update.message.chat_id, text=helphelp)
